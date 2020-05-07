@@ -22,6 +22,8 @@ const dbName = process.env.MONGO_DB;
 const MONGO_URL = `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@${process.env.MONGO_HOST}:${process.env.MONGO_PORT}`;
 
 
+
+
 //Battle location
 app.get('/list', (req, res) => {
     const collection = db.collection('battles');
@@ -63,8 +65,7 @@ app.get('/search', (req, res) => {
         "$and": [{
             $or: [
                 { "attacker_king": `${params.attacker_king}` },
-                { "defender_king": `${params.defender_king}` }
-            ]
+                { "defender_king": `${params.defender_king}` }]
         }, {
             "location": `${params.location}`,
             "battle_type": `${params.battle_type}`
@@ -72,7 +73,6 @@ app.get('/search', (req, res) => {
     }).toArray((err, result) => {
         if (!err) {
             res.send(result);
-            console.log(req.query);
         }
         return err;
     });
